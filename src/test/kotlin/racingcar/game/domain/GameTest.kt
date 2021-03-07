@@ -44,4 +44,20 @@ internal class GameTest {
             .extracting("position")
             .containsOnly(3)
     }
+
+    @Test
+    fun `모든 케이스에서 움직일 경우 우승자를 찾는다`() {
+        // given
+        val nameOfCar = "name1,name2,name3"
+        val numOfGame = "3"
+
+        // when
+        val param = GameParameter.initParameter(nameOfCar, numOfGame)
+        val moveCondition = { 6 }
+        val result = Game.start(param, moveCondition)
+
+        // then
+        val winners = Game.findWinners(result)
+        assertThat(winners).containsOnly("name1", "name2", "name3")
+    }
 }
